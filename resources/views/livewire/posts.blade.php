@@ -2,7 +2,7 @@
 
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
 
-        Manage Posts (Laravel 8 Livewire CRUD with Jetstream & Tailwind CSS - HDTuto.com)
+        Manage Posts
 
     </h2>
 

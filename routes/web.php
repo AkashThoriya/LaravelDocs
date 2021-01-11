@@ -25,3 +25,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('post', Posts::class);
 
+Route::get('contacts', function () {
+    return view('default-dynamic-form');
+});
+
+Route::get('image-upload', function () {
+    return view('default-file');
+});
