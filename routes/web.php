@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Posts;
+use Illuminate\Http\Request;
 
 
 /*
@@ -29,10 +30,18 @@ Route::get('contacts', function () {
     return view('default-dynamic-form');
 });
 
+Route::get('dynamic-form-jquery', function () {
+    return view('dynamic-generation-jquery');
+});
+
 Route::get('image-upload', function () {
     return view('default-file');
 });
 
 Route::get('/testElasticSearch',function (){
     dd(\App\Helpers\ElasticSearch::testQuery());
+});
+
+Route::get('/testPaginator',function (){
+    dd(\App\Helpers\CustomPaginator::getPaginator(4));
 });
