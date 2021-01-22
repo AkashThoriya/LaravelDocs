@@ -32,3 +32,7 @@ Route::get('contacts', function () {
 Route::get('image-upload', function () {
     return view('default-file');
 });
+
+Route::get('/testElasticSearch',function (){
+    dd(\App\Helpers\ElasticSearch::testQuery());
+});
