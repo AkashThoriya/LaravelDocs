@@ -42,6 +42,7 @@ class ElasticSearch
         );
 
         $data['query']['bool']['must'][] = $city;
+        dd($data);
 
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
@@ -54,6 +55,140 @@ class ElasticSearch
             echo 'Error:' . curl_error($ch);
         }
         curl_close($ch);
-        dd($result);
+        return $result;
+    }
+
+    public static function advanceSearch()
+    {
+
+        $data = array(
+            'from' => 0,
+            'size' => 10,
+            '_source' => [
+                'includes' => ["appellant","respondent","judgementdate","courttitle"]
+            ],
+            'query' =>
+                [
+                    'bool' =>
+                        [
+                            'must' =>
+                                [
+
+                                ],
+
+                            'filter' =>
+                                [
+
+                                ]
+                        ]
+                ]
+        );
+        $range =
+                [
+                    'range' =>
+                        [
+                            'judgementdate' =>
+                                [
+                                    'lte' => $lte
+                                ]
+                        ]
+                ];
+        if((!(empty($gte))))
+        {
+            $range =
+            [
+                'range' =>
+                    [
+                        'judgementdate' =>
+                            [
+                                'lte' => $lte,
+                                'gte' => $gte
+                            ]
+                    ]
+            ];
+        }
+
+        $data['query']['bool']['filter'][] = $range;
+
+        $judtext =
+        [
+            'match' =>
+                [
+                    'judtext' => $request->judtext
+                ]
+        ];
+
+        (!(empty($request->judtext))) ? $data['query']['bool']['must'][] = $judtext : '';
+
+        $appellant =
+        [
+            'match' =>
+                [
+                    'appellant' => $request->appellant
+                ]
+        ];
+
+        (!(empty($request->appellant))) ? $data['query']['bool']['must'][] = $appellant : '';
+
+        $respondent =
+        [
+            'match' =>
+                [
+                    'respondent' => $request->respondent
+                ]
+        ];
+
+        (!(empty($request->respondent))) ? $data['query']['bool']['must'][] = $respondent : '';
+
+        $judge =
+        [
+            'match' =>
+                [
+                    'judge' => $request->judge
+                ]
+        ];
+
+        (!(empty($request->judge))) ? $data['query']['bool']['must'][] = $judge : '';
+
+        $result =
+        [
+            'match' =>
+                [
+                    'result' => $request->result
+                ]
+        ];
+
+        (!(empty($request->result))) ? $data['query']['bool']['must'][] = $result : '';
+
+        $casetype =
+        [
+            'match' =>
+                [
+                    'casetype' => $request->casetype
+                ]
+        ];
+
+        (!(empty($request->casetype))) ? $data['query']['bool']['must'][] = $casetype : '';
+
+        $advocate =
+        [
+            'match' =>
+                [
+                    'advocate' => $request->advocate
+                ]
+        ];
+
+        (!(empty($request->advocate))) ? $data['query']['bool']['must'][] = $advocate : '';
+
+        $actnote =
+        [
+            'match' =>
+                [
+                    'actnote' => $request->actnote
+                ]
+        ];
+
+        (!(empty($request->actnote))) ? $data['query']['bool']['must'][] = $actnote : '';
+
     }
 }

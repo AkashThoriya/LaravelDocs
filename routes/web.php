@@ -39,7 +39,7 @@ Route::get('image-upload', function () {
 });
 
 Route::get('/testElasticSearch',function (){
-    dd(\App\Helpers\ElasticSearch::testQuery());
+    dd(\App\Helpers\ElasticSearch::advanceSearch());
 });
 
 Route::get('/testPaginator',function (){
